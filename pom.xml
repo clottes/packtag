@@ -15,12 +15,6 @@
 		<jdk.compiler.version>1.4</jdk.compiler.version>
 	</properties>
 
-	<parent>
-		<groupId>de.galan</groupId>
-		<artifactId>parent</artifactId>
-		<version>0.1</version>
-	</parent>
-
 	<licenses>
 		<license>
 			<name>GNU Lesser General Public License (LGPL), Version 2.1</name>
