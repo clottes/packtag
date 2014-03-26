@@ -183,21 +183,25 @@ public class ScriptTag extends PackTag {
 	}
 
 
+	@Override
 	protected String getStrategyName() {
 		return STRATEGY_NAME_JAVASCRIPT;
 	}
 
 
+	@Override
 	protected PackStrategy getResourceDefaultStrategy() {
 		return new JsminPackStrategy();
 	}
 
 
+	@Override
 	protected String getResourceExtension() {
 		return EXTENSION_JAVASCRIPT;
 	}
 
 
+	@Override
 	protected String getMimeType() {
 		return MIME_TYPE_JAVASCRIPT;
 	}
