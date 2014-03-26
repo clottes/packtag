@@ -10,8 +10,8 @@
 
 	<groupId>net.sf.packtag</groupId>
 	<artifactId>packtag-core</artifactId>
-	<version>3.9</version>
-	
+	<version>3.9-rosy-SNAPSHOT</version>
+
 	<name>packtag-core - packtag taglib and servlet</name>
 	<packaging>jar</packaging>
 	<url>http://sourceforge.net/projects/packtag/</url>

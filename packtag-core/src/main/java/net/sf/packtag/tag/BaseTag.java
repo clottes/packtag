@@ -131,6 +131,11 @@ public abstract class BaseTag extends BodyTagSupport {
 	/** If enabled is set to false, the original resource will be referenced */
 	private boolean enabled = true;
 
+/* LABJS start */
+	/** The variable used as the labjs to add .script to (if null don't use labjs) */
+	private final static String ATTRIBUTE_LABJS = "labjs";
+	private String labjs;
+/* LABJS end */
 
 	protected String determineAbsolutePath(final String source) {
 		String result = source;
@@ -244,6 +249,25 @@ public abstract class BaseTag extends BodyTagSupport {
 	public void setEnabled(final boolean enabled) {
 		this.enabled = enabled;
 	}
+
+/* LABJS start */
+
+	/** Returns the source of the resource */
+	public String getLabjs() {
+		return labjs;
+	}
+
+
+	/** Sets the resource in the tag */
+	public void setLabjs(final String labjs) {
+		if (isStandardTaglibAvailable()) {
+			this.labjs = (String)evaluate(ATTRIBUTE_LABJS, labjs, String.class);
+		}
+		else {
+			this.labjs = labjs;
+		}
+	}
+/* LABJS end */
 
 
 	/** Configuration; returns the path, where the minifed resources will be put in (when cache type is file) */

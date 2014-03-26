@@ -83,31 +83,68 @@ public class ScriptTag extends PackTag {
 	/** If defer is set to true, the defer attribute is added */
 	private Boolean defer = Boolean.FALSE;
 
+/* LABJS start */
+	private final static String SCRIPT_START_SOLO = "<script type=\"text/javascript\"";
+
+	@Override
 	protected void writeResouce(final JspWriter writer, final String path) throws Exception {
 		StringBuffer buffer = new StringBuffer();
-		buffer.append(SCRIPT_START);
-		buffer.append(path);
-		buffer.append(SCRIPT_SRC_END);
-		if (isEnabled()) {
-			buffer.append(OUTPUT_CHARSET);
+		if(getLabjs() != null){
+			buffer.append(SCRIPT_START_SOLO);
+			if (isEnabled()) {
+				buffer.append(OUTPUT_CHARSET);
+			}
+			if (Boolean.TRUE.equals(isAsync())) {
+		                if (isScriptAsyncdeferXhtml()) {
+				buffer.append(OUTPUT_ASYNC_XHTML);
+		                }
+		                else {
+				buffer.append(OUTPUT_ASYNC_HTML5);
+		                }
+			}
+			if (Boolean.TRUE.equals(isDefer())) {
+		                if (isScriptAsyncdeferXhtml()) {
+				buffer.append(OUTPUT_DEFER_XHTML);
+		                }
+		                else {
+				buffer.append(OUTPUT_DEFER_HTML5);
+		                }
+			}
+			buffer.append(">");
+
+			//now to laod via labjs and .script:
+			buffer.append(getLabjs())
+			.append(".script(\"")
+			.append(path)
+			.append("\");");
+
+			buffer.append(SCRIPT_END_SOLO);
+		}else{
+			buffer.append(SCRIPT_START);
+			buffer.append(path);
+			buffer.append(SCRIPT_SRC_END);
+			if (isEnabled()) {
+				buffer.append(OUTPUT_CHARSET);
+			}
+			if (Boolean.TRUE.equals(isAsync())) {
+	                    if (isScriptAsyncdeferXhtml()) {
+				buffer.append(OUTPUT_ASYNC_XHTML);
+	                    }
+	                    else {
+				buffer.append(OUTPUT_ASYNC_HTML5);
+	                    }
+			}
+			if (Boolean.TRUE.equals(isDefer())) {
+	                    if (isScriptAsyncdeferXhtml()) {
+				buffer.append(OUTPUT_DEFER_XHTML);
+	                    }
+	                    else {
+				buffer.append(OUTPUT_DEFER_HTML5);
+	                    }
+			}
+			buffer.append(SCRIPT_END);
 		}
-		if (Boolean.TRUE.equals(isAsync())) {
-                    if (isScriptAsyncdeferXhtml()) {
-			buffer.append(OUTPUT_ASYNC_XHTML);
-                    }
-                    else {
-			buffer.append(OUTPUT_ASYNC_HTML5);
-                    }
-		}
-		if (Boolean.TRUE.equals(isDefer())) {
-                    if (isScriptAsyncdeferXhtml()) {
-			buffer.append(OUTPUT_DEFER_XHTML);
-                    }
-                    else {
-			buffer.append(OUTPUT_DEFER_HTML5);
-                    }
-		}
-		buffer.append(SCRIPT_END);
+/* LABJS end */
 		writer.write(buffer.toString());
 	}
 
