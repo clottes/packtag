@@ -89,8 +89,8 @@ import net.sf.packtag.util.SafeLogger;
 
 /**
  * Tag Base class for common Operations
- * 
- * @author Daniel Gal�n y Martins
+ *
+ * @author Daniel Galán y Martins
  * @version $Revision: 1.17 $
  */
 public abstract class BaseTag extends BodyTagSupport {
@@ -128,7 +128,7 @@ public abstract class BaseTag extends BodyTagSupport {
 	private String src;
 	/** If compress is set to false by the user, no minification is done */
 	private Boolean minify = Boolean.TRUE;
-	/** I enabled is set to false, the original resource will be referenced */
+	/** If enabled is set to false, the original resource will be referenced */
 	private boolean enabled = true;
 
 
