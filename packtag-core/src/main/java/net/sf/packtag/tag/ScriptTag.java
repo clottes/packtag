@@ -44,7 +44,7 @@ import net.sf.packtag.strategy.PackStrategy;
 /**
  * JSP Tag for compressing JavaScript resources.
  * 
- * @author Daniel Galán y Martins
+ * @author Daniel GalÃ¡n y Martins
  * @version $Revision: 1.7 $
  */
 public class ScriptTag extends PackTag {
@@ -90,27 +90,29 @@ public class ScriptTag extends PackTag {
 	protected void writeResouce(final JspWriter writer, final String path) throws Exception {
 		StringBuffer buffer = new StringBuffer();
 		if(getLabjs() != null){
-			buffer.append(SCRIPT_START_SOLO);
-			if (isEnabled()) {
-				buffer.append(OUTPUT_CHARSET);
+			if(isTag()){
+				buffer.append(SCRIPT_START_SOLO);
+				if (isEnabled()) {
+					buffer.append(OUTPUT_CHARSET);
+				}
+				if (Boolean.TRUE.equals(isAsync())) {
+			                if (isScriptAsyncdeferXhtml()) {
+					buffer.append(OUTPUT_ASYNC_XHTML);
+			                }
+			                else {
+					buffer.append(OUTPUT_ASYNC_HTML5);
+			                }
+				}
+				if (Boolean.TRUE.equals(isDefer())) {
+			                if (isScriptAsyncdeferXhtml()) {
+					buffer.append(OUTPUT_DEFER_XHTML);
+			                }
+			                else {
+					buffer.append(OUTPUT_DEFER_HTML5);
+			                }
+				}
+				buffer.append(">");
 			}
-			if (Boolean.TRUE.equals(isAsync())) {
-		                if (isScriptAsyncdeferXhtml()) {
-				buffer.append(OUTPUT_ASYNC_XHTML);
-		                }
-		                else {
-				buffer.append(OUTPUT_ASYNC_HTML5);
-		                }
-			}
-			if (Boolean.TRUE.equals(isDefer())) {
-		                if (isScriptAsyncdeferXhtml()) {
-				buffer.append(OUTPUT_DEFER_XHTML);
-		                }
-		                else {
-				buffer.append(OUTPUT_DEFER_HTML5);
-		                }
-			}
-			buffer.append(">");
 
 			//now to laod via labjs and .script:
 			buffer.append(getLabjs())
@@ -118,7 +120,9 @@ public class ScriptTag extends PackTag {
 			.append(path)
 			.append("\");");
 
-			buffer.append(SCRIPT_END_SOLO);
+			if(isTag()) {
+				buffer.append(SCRIPT_END_SOLO);
+			}
 		}else{
 			buffer.append(SCRIPT_START);
 			buffer.append(path);
@@ -127,20 +131,20 @@ public class ScriptTag extends PackTag {
 				buffer.append(OUTPUT_CHARSET);
 			}
 			if (Boolean.TRUE.equals(isAsync())) {
-	                    if (isScriptAsyncdeferXhtml()) {
-				buffer.append(OUTPUT_ASYNC_XHTML);
-	                    }
-	                    else {
-				buffer.append(OUTPUT_ASYNC_HTML5);
-	                    }
+				if (isScriptAsyncdeferXhtml()) {
+					buffer.append(OUTPUT_ASYNC_XHTML);
+				}
+				else {
+					buffer.append(OUTPUT_ASYNC_HTML5);
+				}
 			}
 			if (Boolean.TRUE.equals(isDefer())) {
-	                    if (isScriptAsyncdeferXhtml()) {
-				buffer.append(OUTPUT_DEFER_XHTML);
-	                    }
-	                    else {
-				buffer.append(OUTPUT_DEFER_HTML5);
-	                    }
+				if (isScriptAsyncdeferXhtml()) {
+					buffer.append(OUTPUT_DEFER_XHTML);
+				}
+				else {
+					buffer.append(OUTPUT_DEFER_HTML5);
+				}
 			}
 			buffer.append(SCRIPT_END);
 		}

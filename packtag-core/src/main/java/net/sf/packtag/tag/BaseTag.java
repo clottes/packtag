@@ -135,6 +135,9 @@ public abstract class BaseTag extends BodyTagSupport {
 	/** The variable used as the labjs to add .script to (if null don't use labjs) */
 	private final static String ATTRIBUTE_LABJS = "labjs";
 	private String labjs;
+	/** If tag is set to false, the <script> or <link> tags will not be written out
+	 * (useful with labjs if already in a script tag) */
+	private boolean tag = true;
 /* LABJS end */
 
 	protected String determineAbsolutePath(final String source) {
@@ -267,6 +270,26 @@ public abstract class BaseTag extends BodyTagSupport {
 			this.labjs = labjs;
 		}
 	}
+
+	/** Should the resource be handled by pack:tag or just written out? */
+	public boolean isTag() {
+		return tag;
+	}
+
+
+	/** Sets if the resource should be handled or just written out */
+	public void setTag(final Boolean tag) {
+		if (tag != null) {
+			this.tag = tag.booleanValue();
+		}
+	}
+
+
+	/** Sets if the resource should be handled or just written out */
+	public void setTag(final boolean tag) {
+		this.tag = tag;
+	}
+
 /* LABJS end */
 
 
